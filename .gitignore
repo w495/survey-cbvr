@@ -15,6 +15,7 @@
 *.nav
 *.snm
 
+pandoc/*
 export/*
 bin/*
 tikz/ps/*
