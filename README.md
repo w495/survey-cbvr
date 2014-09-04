@@ -478,6 +478,10 @@ The paper focuses on an overview of the different existing methods in content-
 
 -   динамические меры сходства видео на основе выбора статистических функций.
 
+
+Источники
+==========
+
 Adcock, John, Andreas Girgensohn, Matthew Cooper, Ting Liu, Lynn Wilcox, and Eleanor Rieffel. 2004. “Fxpal Experiments for Trecvid 2004.” *Proceedings of the TREC Video Retrieval Evaluation (TRECVID)*: 70–81.
 
 Andre, B., T. Vercauteren, AM. Buchner, M.B. Wallace, and N. Ayache. 2012. “Learning Semantic and Visual Similarity for Endomicroscopy Video Retrieval.” *Medical Imaging, IEEE Transactions* 31 (6) (June): 1276–1288. doi:[10.1109/TMI.2012.2188301](http://dx.doi.org/10.1109/TMI.2012.2188301).
