@@ -1,0 +1,25 @@
+\RequirePackage{ifthen}
+\RequirePackage{ifpdf}
+\RequirePackage{ifxetex}
+
+\newcommand{\STYLES}{styles}            % месторасположение стилей
+
+\newcommand{\localStyle}[1]{
+    \usepackage{\STYLES/#1} % стандартный импорт пакетов
+}
+
+\localStyle{Maths}          % модуль нашей математики
+\localStyle{Fonts}          % наши шрифты и локализация и псевдонимы шрифтов
+\localStyle{Graphics}   % модуль нашей графики
+\localStyle{Index}      % предметный указатель
+
+
+\usepackage{pdflscape}
+
+
+\pagestyle{empty}
+\thispagestyle{empty}
+
+\usepackage[top=0cm,bottom=0cm,left=0cm,right=0cm]{geometry}
+
+

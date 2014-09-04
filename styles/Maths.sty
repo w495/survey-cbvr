@@ -1,0 +1,67 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% подключение математики
+%%%
+
+    % AMS font faces
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsfonts}
+
+    \usepackage{mathtext}
+    \usepackage{mathtools}
+
+
+    \usepackage{amscd}
+
+    \DeclareMathOperator{\Frob}{Frob}
+
+
+    % Support for the upright and bold greek letters
+    %\usepackage{bm}
+    %\usepackage[Symbolsmallscale]{upgreek}
+    %\makeatletter
+    %	\newcommand{\bfgreek}[1]{\bm{\@nameuse{up#1}}}
+    %\makeatother
+
+    \usepackage{arcs}
+    \usepackage{textcomp}
+    \usepackage{commath}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% руссификация математики
+%%%
+
+% -------------------------------------------------------
+% Переопределение le ge в русских традициях
+% -------------------------------------------------------
+    \renewcommand{\le}{\leqslant}
+        %\renewcommand{\leq}{\leqslant}
+    \renewcommand{\ge}{\geqslant}
+        %\renewcommand{\geq}{\geqslant}
+% -------------------------------------------------------
+% Переопределение kappa epsilon phi на русский лад
+% -------------------------------------------------------
+    \renewcommand{\kappa}{\varkappa}
+    \renewcommand{\epsilon}{\varepsilon}
+    \renewcommand{\phi}{\varphi}
+
+% -------------------------------------------------------
+% Прямые интегралы
+% -------------------------------------------------------
+% Определяем свой шрифт "lsumb"
+    \DeclareSymbolFont{lsymb}{U}{euex}{m}{n}
+% Определяем интегралы
+    \DeclareMathSymbol{\intop}{\mathop}{lsymb}{"52}
+    \DeclareMathSymbol{\ointop}{\mathop}{lsymb}{"48}
+    \DeclareMathSymbol{\smallint}{\mathop}{lsymb}{"52}
+% Традиции
+    \newcommand{\intl}{\int\limits}
+    \usepackage{misccorr}
+
+    \usepackage{accsupp}
+% 
+%     \everymath{\color{orange!30!black}}
+%     \everydisplay{\color{orange!30!black}}

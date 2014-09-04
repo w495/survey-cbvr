@@ -1,0 +1,29 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%            Для компиляции только в XeTeX         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% подключение пакета гиперссылок
+%%%
+		\usepackage[
+			% debug,
+			pdfborder    = {0 0 0}, 
+			bookmarks = true,
+			bookmarksopen, 
+			bookmarksopenlevel = 3, 
+			pdftoolbar=true,        % показать тулбар (Acrobat)?
+			pdfmenubar=true,        % показать меню (Acrobat)
+			pdfnewwindow=true,      % ссылки в новых окнах		
+			pagebackref=true,
+			colorlinks=true, 		% установка цвета ссылок в оглавлении 
+			citecolor=teal!40!black!80,
+			filecolor=black, 
+			linkcolor=blue!50!black!80,
+			urlcolor=black 	
+		]{hyperref} 
+
+	\usepackage{cite}
+	%%% Переход по цитатам не работает все равно.
+	%%% Возможно, это баг в hyperref.
+

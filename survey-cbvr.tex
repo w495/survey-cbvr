@@ -1,0 +1,57 @@
+%& -shell-escape
+
+\documentclass[utf8x, sts, 14pt, a4paper,oneside,fleqn]{extarticle}
+% fleqn --- сдвигает формулы влево
+
+%% Варианты {}:
+% book
+% report
+% article
+% letter
+% minimal (???)
+
+\usepackage{styles/init}
+
+
+
+% подключаем набор стилей
+% там были определены базовые настройки шрифтов
+% и пакетов роботы с графикой и листингами
+
+% При не обходимости шрифты следует переопределить
+% потому что, если в Вашей системе
+% не окажется нужных шрифтов, pdf не соберется
+
+% текущее положение включаемых файлов --- ./src
+
+\hypersetup{
+    pdftitle={Обзор методов комплексного ассоциативного поиска видео},
+    pdfauthor={Илья w-495 Никитин},
+    pdfcreator={XeLaTeX + w-495},
+    pdfsubject={Обзор методов комплексного ассоциативного поиска видео},
+    pdfproducer={w-495},
+    pdfkeywords={\workpdfkeywords}
+}
+
+\begin{document}
+    \begin{onehalfspacing}
+        % содержание
+        \subimport{src/}{titlepage}
+        \tableofcontents
+        \pagebreak
+        \printglossary[title=Словарь терминов,toctitle=Словарь терминов]
+        \pagebreak
+        % обзор
+        \subimport{src/}{survey}
+        \pagebreak
+        % список использованных источников
+        \subimport{src/}{biblio}
+        \printindex
+    \end{onehalfspacing}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-PDF-mode: t
+%%% End:
+

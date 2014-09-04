@@ -1,0 +1,107 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%            Для компиляции только в XeTeX         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% шрифты и локализация основное
+%%%
+
+
+
+\ifthenelse{ \boolean{xetex} }{
+    \usepackage[cm-default]{fontspec}
+    \usepackage{xunicode}
+    \usepackage{xltxtra} % \XeLaTeX macro
+    \defaultfontfeatures{Mapping=tex-text, Ligatures=TeX}
+    \usepackage{polyglossia}
+    \setdefaultlanguage{russian}    % задаем язык по умолчанию,
+                                    % для правильного отображения некоторых разделов
+                                    % таких как Содержание, предметный указатель
+    %%%
+    %%% Зададим основные шрифты
+    %%%     (!)
+    %%%     обязателльно нужно проверить, есть ли у вас такие шрифты
+    %%%     если нет, та попробуйте установить из папки fonts,
+    %%%     или заменить на другие
+    %%%
+        % тут использованы DejaVu шрифты --- они есть почти на всех ОС
+        % к тому же не все шрифты формально поддерживают
+        % кириллицу (ругаются когда, их назначаешь основным)
+    \newcommand{\setmaincyrfont}[1]{%
+        \newfontfamily{\cyrillicfont}{#1}\setmainfont{#1} }
+    \newcommand{\setromancyrfont}[1]{%
+        \newfontfamily{\cyrillicfonttt}{#1}\setromanfont{#1} }
+    %% Для некторых шрифтов нужно использовать эту команду.
+    \setmaincyrfont{Times New Roman}
+    \setsansfont{Calibri}
+    \setmonofont{Times New Roman}
+    \setromancyrfont{Liberation Mono}
+    \newcommand{\constantia}{\fontspec{Constantia}}
+    \newcommand{\freeserif}{\fontspec{FreeSerif}}
+    \newcommand{\droidserif}{\fontspec{Droid Serif}}
+    \newcommand{\libertine}{\fontspec{Linux Libertine G}}
+    \newcommand{\biolinum}{\fontspec{Linux Biolinum G}}
+    \newcommand{\liberation}{\fontspec{Liberation Serif}}
+    \newcommand{\comic}{\fontspec{Comic Sans MS}}
+    \newcommand{\magic}{\fontspec{MagicC}}
+    \newcommand{\decor}{\fontspec{DecorC}}
+
+    \usepackage[math-style=ISO]{unicode-math}
+
+    \setmathfont{Cambria Math}
+
+    \setmathfont[range=\mathit/{latin,Latin,num,Greek,greek}]{Calibri Italic}
+    \setmathfont[range=\mathup/{latin,Latin,num,Greek,greek}]{Calibri}
+    \setmathfont[range=\mathbfup/{latin,Latin,num,Greek,greek}]{Calibri Bold}
+    %\setmathfont[range={"2202}]{Linux Libertine O}% "02202 = \partial % doesn't work
+    \setmathfont[range={"221E}]{Linux Libertine O}% "0221E = \infty
+
+}{%
+    \ifpdf
+        \usepackage{cmap}
+    \fi
+    \usepackage[english,russian]{babel}
+    %\usepackage[T1]{fontenc}
+    \usepackage[T2A]{fontenc}
+    %\usepackage[T2B]{fontenc}
+    %\usepackage[T2C]{fontenc}
+    %\usepackage{lmodern}
+    %\usepackage{charter}
+    %\usepackage{times}
+
+    \usepackage[utf8x]{inputenc}
+
+    \usepackage{etex}
+    \frenchspacing
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \pdfcompresslevel=0
+
+}
+
+\usepackage{accsupp}
+
+
+\ifthenelse{ \boolean{xetex} }{
+    \newcommand*{\cp}[1]{#1}
+}{%
+    \newcommand*{\cp}[1]{%
+        \BeginAccSupp{%
+            ActualText=\detokenize{#1},%
+            method=escape,
+        }%
+            #1%
+        \EndAccSupp{}%
+    }
+}
+
+\DeclareRobustCommand\squelch[1]{%
+    \BeginAccSupp{method=plain,ActualText={}}#1\EndAccSupp{}}
+
+
+
+
+
+
+

@@ -1,0 +1,36 @@
+\documentclass[utf8x,14pt]{extarticle}
+
+\usepackage{styles/ginit}
+
+
+\begin{document}
+\sf
+\tikzXmindmap{
+    \path[
+        level 1 concept/.append style={sibling angle=120},
+        mindmap
+    ]
+        node[concept] {\Huge Видео} [clockwise from=-30]
+            child {
+                node[concept] {\normalsize Сигналы}
+                child {
+                    node[concept] {\large Цвет}
+                }
+                child {
+                    node[concept] {\normalsize Формы}
+                }
+                child {
+                    node[concept] {\small Текстуры}
+                }
+            }
+            child {
+                node[concept] {\small Описание} [clockwise from=-30]
+                child {
+                    node[concept] {Ключевые слова}
+                }
+                child [grow=-150] {
+                    node[concept] {Атрибуты}
+                }
+            };
+}
+\end{document}

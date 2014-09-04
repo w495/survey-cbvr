@@ -1,0 +1,156 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%            Для компиляции только в XeTeX         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% подключение цветов и графики (желательно сохранять именно такой порядок)
+%%%
+
+% -------------------------------------------------------
+% Картинки
+% -------------------------------------------------------
+
+    \usepackage{graphicx}
+    \usepackage{epsfig}
+
+    %\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+
+    \renewcommand{\thefigure}{\arabic{figure}}
+
+
+% Keeps floats `in their place', preventing them from floating past a
+% "\FloatBarrier" command into another section.  The floats should not move
+% past every "\section".
+\usepackage[section]{placeins}
+
+% Useful for individually placing figures on a separate page with
+% \afterpage{\clearpage \begin{figure}[p] ... }
+\usepackage{afterpage}
+
+
+\newcommand{\fcaption}[1]{%
+    {\captionsetup{skip=12pt,justification=centering,singlelinecheck=false}\caption{\sf #1}}%
+}
+
+
+\newcommand{\fcaptionl}[1]{%
+    {\captionsetup{skip=12pt,justification=raggedright,singlelinecheck=false}\caption{\sf\small #1}}%
+}
+
+
+\newcommand{\forigtext}[1]{%
+    {\large<<}{\magic#1}{\large>>}.%
+}
+
+\newcommand{\forigtitle}[1]{
+    %{\sf \small Заголовок:~\forigtext{#1}}
+}
+
+\newcommand{\forigtitletr}[1]{%
+    \forigtext{#1}%
+}
+
+
+
+\newenvironment{figured}
+    {
+            \vspace{1em}
+            \begin{figure}[H]
+                \sf%
+                \begin{center}
+    }
+    {
+                \end{center}
+            \end{figure}
+
+    }
+
+
+
+\newenvironment{figuredt}
+    {%
+            \begin{figure}[t]%
+                \sf%
+                \begin{center}%
+    }%
+    {%
+                \end{center}%
+            \end{figure}%
+    }%
+
+
+% -------------------------------------------------------
+% Цвета
+% -------------------------------------------------------
+
+    \usepackage[usenames]{xcolor}
+
+    \newcommand{\red}[1]{\textcolor{red}{#1}}
+    \newcommand{\blue}[1]{\textcolor{blue}{#1}}
+    \newcommand{\gray}[1]{\textcolor{gray}{#1}}
+    \newcommand{\yb}[1]{\colorbox{yellow}{#1}}
+
+% -------------------------------------------------------
+% Векторные рисунки
+% -------------------------------------------------------
+    \usepackage{pspicture}
+    \usepackage{pst-plot,pstricks-add}
+    %\usepackage{pstricks,pst-node,pst-text,pst-3d,pst-grad}
+
+    \usepackage{etoolbox}
+
+%     \usepackage{pgfmath}
+
+    \usepackage{pgfplots}
+
+    \usepackage{tikz}
+    \usepackage{tikz-cd}
+    \usepackage{tkz-fct}
+
+    \newcommand*{\tikzcdset}{\pgfqkeys{/tikz/commutative diagrams}}
+
+    \usepgfmodule{oo}
+
+
+%     \tikzcdset{/tikz/commutative diagrams}
+
+    \usetikzlibrary{mindmap,trees}
+
+%     \usetikzlibrary{decorations.text}
+% %     \usetikzlibrary{shapes.multipart}
+
+    \usetikzlibrary{snakes}
+
+    \usetikzlibrary{arrows,shapes,shadows,decorations}
+    \usetikzlibrary{decorations.pathreplacing}
+    \usetikzlibrary{decorations.pathmorphing}
+    \usetikzlibrary{calc}
+
+    \usetikzlibrary{trees}
+    \usetikzlibrary{decorations.markings}
+
+    \usetikzlibrary{backgrounds}
+
+    \usetikzlibrary{chains,positioning,fit,shapes}
+    
+
+\colorlet{vlgray}{black!5}
+
+
+
+\newcommand{\tikzXmindmap}[1]{
+    \sf
+    \begin{tikzpicture}[very thick, scale=.93,
+            concept color=vlgray,
+            every node/.style={scale=.93},
+            outer sep=1pt
+        ]#1
+        \begin{scope}[
+            on background layer,
+            scale=1.0,
+            every node/.style={scale=1.0},
+            concept color=black!80
+        ]#1\end{scope}
+    \end{tikzpicture}
+}
