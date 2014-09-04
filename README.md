@@ -1,6 +1,20 @@
+Что это
+========
+
+Исходники статьи в TeX. Этот файл, кстати, тоже получен из TeX.
+
+
+Abstract
+==========
+
+
 The paper focuses on an overview of the different existing methods in content-based video retrieval. During the last decade there was a rapid growth of video posted on the Internet. This imposes urgent demands on video retrieval. Video has a complex structure and can express the same idea in different ways. This makes the task of searching for video more complicated. Video titles and text descriptions cannot give the hole information about objects and events in the video. This creates a need for content-based video retrieval. There is a semantic gap between low-level video features, that can be extracted, and the users’ perception. Complex content-based video retrieval can be regarded as the bridge between traditional retrieval and semantic-based video retrieval.
 
 <span>**Keywords:**</span> frames; near-duplicates video; scenes; shots; video annotation; video classification; video mining; video reranking; video retrieval;
+
+
+Аннотация
+==========
 
 УДК 004.932.4
 
@@ -32,27 +46,6 @@ The paper focuses on an overview of the different existing methods in content-
 Таким образом, видео обладает комплексностью. Комплексность (системность, мультимодальность) — способность взаимодействовать с пользователем по различным каналам информации и извлекать и передавать смысл автоматически Nigay and Coutaz (1993).
 
 Комплексность видео состоит в возможности автора выражать мысли, используя по крайней мере два информационных канала. Каналы могут быть визуальными, звуковыми или текстовыми.
-
-<span>Некоторые научные работы по ассоциативному поиску видео</span>
-
-<span>|R|c|L|</span> Год & Работа & Тема
-2008 & Haase, Davis, and Davis (1995) &
-2011 & Kamabathula and Iyer (2011) &
-2010 & Fu et al. (2010) &
-2012 & M. Wang et al. (2012) &
-2012 & X. Chen, Hero, and Savarese (2012), Zha et al. (2012), J. Wu and Worring (2012) &
-2014 & Asghar, Hussain, and Manton (2014) &
-2012 & B. Huurnink et al. (2012) &
-2013 & Tamizharasan and S (2013) &
-2011 & Karpenko and Aarabi (2011), Cheng and Chia (2011) & Представление видео
-2012 & Jiang et al. (2012), Yu et al. (2012), Andre et al. (2012) & Смысловой ассоциативный поиск
-2012 & T. Zhang et al. (2012), Yu et al. (2012) & Аннотирование видео
-2012 & Chu and Tsai (2012) & Видео-поиск по движению
-2011 & Tian et al. (2011) &
-2012 & T. Zhang et al. (2012) &
-2010 & Tahayna. et al. (2010) &
-2011 & Sargin and Aradhye (2011) &
-2012 & Lim et al. (2012), Ionescu et al. (2012) &
 
 В работе T. Zhang et al. (2012) дают хороший обзор аннотации видео. В работе Tian et al. (2011) описываются свежие исследования методов ранжирования видео.
 
