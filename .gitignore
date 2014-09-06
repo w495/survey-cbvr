@@ -1,19 +1,45 @@
 .git
 
 *~
-
-*.pdf
+*.gnuplot
+*.table
+*.acn
+*.acr
+*.alg
 *.aux
 *.bbl
 *.blg
+*.brf
+*.glg
+*.glo
+*.gls
 *.idx
 *.ilg
 *.ind
+*.ist
 *.log
 *.out
 *.toc
-*.nav
-*.snm
+*.xdy
+*.glo.cp1251
+*.gls.cp1251
+*.idx.cp1251
+*.ind.cp1251
+*.glo.utf8
+*.gls.utf8
+*.idx.utf8
+*.ind.utf8
+*.4ct
+*.4tc
+*.idv
+*.lg
+*.tmp
+*.upa
+*.upb
+*.xdv
+*.xref
+*.css
+*.dvi
 
 pandoc/*
 export/*
@@ -25,4 +51,7 @@ tikz/pdf/*
 tikz/pdf-big/*
 tikz/png/*
 tikz/svg/*
+
+
+
 
