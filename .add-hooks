@@ -1,0 +1,11 @@
+#! /usr/bin/env bash
+
+HOOKS_SRC=".hooks";
+HOOKS_DST=".git/hooks/";
+
+for FILE in $(ls ${HOOKS_SRC}) ; do
+    FILE_SRC="${PWD}/${HOOKS_SRC}/${FILE}";
+    FILE_DST="${PWD}/${HOOKS_DST}/${FILE}";
+    cp "${FILE_SRC}" "${FILE_DST}";
+    echo -en "\n#\n# UPDATE: $(date) \n#\n" >> ${FILE_DST};
+done
