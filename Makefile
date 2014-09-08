@@ -73,22 +73,27 @@ CROPC=pdfcrop
 TXTC=pdftotext
 HTMC=pdftohtml
 
-CONVERTDIR=..convertdir
+CONVERTDIR=__convertdir
 FORMATS=native json docx odt epub epub3 fb2 html html5 s5 \
 slidy slideous dzslides docbook opendocument latex beamer \
 context texinfo man markdown markdown_strict \
 markdown_phpextra markdown_github markdown_mmd plain rst \
 mediawiki textile rtf org asciidoc
 
-FLTDIR=..fltdir
-FLTSRC=$(FLTDIR)/$(TEXNAME).tex
-FLTOUT=$(FLTDIR)/$(TEXNAME).flt
-FLTNAME=$(TEXNAME).flt
+FLTDIR=__fltdir
+FLTSRC1=$(FLTDIR)/$(TEXNAME).tex
+FLTSRC=$(patsubst %, $(FLTDIR)/%,$(TEXSRC))
+
+FLTOUTS=$(patsubst %.tex, $(FLTDIR)/%.tex.flt,$(TEXSRC))
+
+
+FLTOUT=$(FLTDIR)/$(TEXNAME).tex.flt
+FLTNAME=$(TEXNAME).tex.flt
 
 
 CXX=g++
 FLATEXDIR=priv/flatex
-FLATEXC=$(FLATEXDIR)/flatex
+FLATEXC=$(FLATEXDIR)/flatex.py
 FLATEXSDIR=$(FLATEXDIR)/src
 FLATEXMOD=flatex utils
 FLATEXSRC=$(patsubst %, $(FLATEXSDIR)/%.c,$(FLATEXMOD))
@@ -156,7 +161,7 @@ $(PLOTOUT): $(PLOTSRC)
 # -------------------------------------------------------------------------
 
 define convert_builder
-to_$(1): $(TEXSRC)
+to_$(1): $(FLTSRC) $(TEXSRC)
 	$(MAKE) convert to=$(1)
 endef
 
@@ -168,7 +173,7 @@ convert_all:
 
 convert:  _convertdir _convert
 
-_convert: $(FLTNAME) $(TEXSRC)
+_convert: $(FLTOUTS) $(TEXSRC)
 	echo $^			| \
 	tr ' ' '\n' 		| \
 	awk -F. '{print $$0 " -o $(CONVERTDIR)/$(to)/"$$1".$(to)" }' | \
@@ -177,7 +182,7 @@ _convert: $(FLTNAME) $(TEXSRC)
 	--bibliography=$(BIBSRC) \
 	--csl $(CLSSRC)
 
-_convertdir: $(FLTNAME) $(TEXSRC)
+_convertdir: $(FLTOUTS) $(TEXSRC) 
 	echo $(^D)			| \
 	tr ' ' '\n' 			| \
 	sed 's/^/$(CONVERTDIR)\/$(to)\//'	| \
@@ -185,21 +190,27 @@ _convertdir: $(FLTNAME) $(TEXSRC)
 
 
 
-$(FLTNAME): $(FLTOUT)
-	sed -re 's/\\cite\{$(REPHRASE)\}/\\citep{\1}/gi' $< \
-	| sed -re 's/\\multirow\{.+\}\{.+\}\{(.+)\}/\1/gi' \
-	> $@;
+fltout: $(FLTOUTS)
+
+$(FLTOUTS):  $(FLTSRC)
+	$(foreach file,$^,$(FLATEXC) $(file) $(file).flt;)
 
 
-$(FLTOUT):  $(FLTSRC) $(FLATEXC)
-	$(FLATEXC) $<;
+fltsrc: $(FLTSRC)
 
 $(FLTSRC):  $(TEXSRC) | _mergedir
+
 	$(foreach file,$^,\
-	sed -re 's/\\subimport\{$(REPHRASE)\}\{$(REPHRASE)\}/\\input{$(shell dirname $(file) \
-		| sed 's/\//\\//gi')\1\2}/gi' $(file) \
-	| sed -re 's/\\import\{$(REPHRASE)\}\{$(REPHRASE)\}/\\input{\1\2}/gi' \
+	sed -re 's/\\subimport\{$(REPHRASE)\}\{$(REPHRASE)\}/\\input{$(shell readlink -m  $(FLTDIR) | sed 's/\//\\\//gi')\/$(shell dirname $(file) | sed 's/\//\\\//gi')\/\1\2}/gi' $(file) \
+	| sed -re 's/\\cite\{$(REPHRASE)\}/\\citep{\1}/gi' \
+	| sed -re 's/\\multirow\{.+\}\{.+\}\{(.+)\}/\1/gi' \
 	> $(FLTDIR)/$(file);)
+
+
+# 	$(foreach file,$^,\
+# 	sed -re 's/\\subimport\{$(REPHRASE)\}\{$(REPHRASE)\}/\\input{$(shell readlink -m  $(FLTDIR) | sed 's/\//\\\//gi')\/$(shell dirname $(file) | sed 's/\//\\\//gi')\/\1\2}/gi' $(file) \
+# 	| sed -re 's/\\import\{$(REPHRASE)\}\{$(REPHRASE)\}/\\input{$(shell readlink -m $(FLTDIR) | sed 's/\//\\\//gi')\/\1\2}/gi' \
+# 	> $(FLTDIR)/$(file);)
 
 
 _mergedir: $(TEXSRC)
@@ -207,9 +218,6 @@ _mergedir: $(TEXSRC)
 	tr ' ' '\n' 			| \
 	sed 's/^/$(FLTDIR)\//'	| \
 	xargs -n 2 -P $(PROCN) mkdir -p
-
-$(FLATEXC): $(FLATEXSRC)
-	$(CXX) $^ -o $@
 
 
 layout: $(TXTLAYOUT)
@@ -353,7 +361,6 @@ clean_all: clean cleanold
 clean_covert:
 	@$(DEL) 			\
 	$(FLTNAME)			\
-	$(FLATEXC)			\
 	$(CONVERTDIR)			\
 	$(FLTDIR)
 
