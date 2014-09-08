@@ -182,7 +182,7 @@ _convert: $(FLTOUTS) $(TEXSRC)
 	--bibliography=$(BIBSRC) \
 	--csl $(CLSSRC)
 
-_convertdir: $(FLTOUTS) $(TEXSRC) 
+_convertdir: $(FLTOUTS) $(TEXSRC)
 	echo $(^D)			| \
 	tr ' ' '\n' 			| \
 	sed 's/^/$(CONVERTDIR)\/$(to)\//'	| \
@@ -353,7 +353,7 @@ pages: $(TEXPDF)
 clean_old:
 	@find ./ -name "*~" -type f -exec rm -f {} \;
 
-clean_all: clean cleanold
+clean_all: clean clean_old clean_covert
 	@$(DEL)				\
 	"$(TEXNAME).pdf"		\
 	"$(TEXNAME).html"
