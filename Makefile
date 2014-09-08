@@ -3,7 +3,9 @@ TEXNAME=survey-cbvr
 
 HOME=.
 
-TEXSRC=$(shell find $(HOME)/ -name "*.tex" -type f | tac )
+TEXSRC1=$(shell find src/ -name "*.tex" -type f | tac )
+TEXSRC2=$(shell find tikz/ -name "*.tex" -type f | tac )
+TEXSRC=$(TEXNAME).tex $(TEXSRC1) $(TEXSRC2)
 TEXPDF=$(TEXNAME).pdf
 BIBSRC=./src/biblio/main.bib
 
@@ -38,23 +40,10 @@ IDXC=makeindex
 SRTC=sort -u
 RNMC=mv
 
-RDIR=parts
-
-TXTC=pdftotext
-HTMC=pdftohtml
-
 
 PLOTC=gnuplot
 PLOTSRC=$(shell find $(HOME)/ -name "*.gnuplot" | tac )
 PLOTOUT=$(patsubst %.gnuplot, %.table,$(PLOTSRC))
-
-CONVERTDIR=pandoc
-FORMATS=native json docx odt epub epub3 fb2 html html5 s5 \
-slidy slideous dzslides docbook opendocument latex beamer \
-context texinfo man markdown markdown_strict \
-markdown_phpextra markdown_github markdown_mmd plain rst \
-mediawiki textile rtf org asciidoc
-
 
 TIKZDIR=tikz
 TIKZSRC=$(TIKZDIR)
@@ -68,13 +57,8 @@ TIKZPNG=$(TIKZDIR)/png
 TIKZPNGFAST=$(TIKZDIR)/png/fast
 TIKZPNGBIG=$(TIKZDIR)/png/big
 
-CROPC=pdfcrop
-
 PROCN=4
 
-
-# Encoding
-# --------------------------------------
 NCODE=utf8
 # koi8r оказался плох, из-за не алфавитного порядка русских букв.
 XCODE=cp1251
@@ -82,9 +66,37 @@ XCODE=cp1251
 N2XC=iconv -f "$(NCODE)" -t "$(XCODE)"
 X2NC=iconv -f "$(XCODE)" -t "$(NCODE)"
 
-# Clean
-# --------------------------------------
 DEL=rm -rf
+
+
+CROPC=pdfcrop
+TXTC=pdftotext
+HTMC=pdftohtml
+
+CONVERTDIR=..convertdir
+FORMATS=native json docx odt epub epub3 fb2 html html5 s5 \
+slidy slideous dzslides docbook opendocument latex beamer \
+context texinfo man markdown markdown_strict \
+markdown_phpextra markdown_github markdown_mmd plain rst \
+mediawiki textile rtf org asciidoc
+
+FLTDIR=..fltdir
+FLTSRC=$(FLTDIR)/$(TEXNAME).tex
+FLTOUT=$(FLTDIR)/$(TEXNAME).flt
+FLTNAME=$(TEXNAME).flt
+
+
+CXX=g++
+FLATEXDIR=priv/flatex
+FLATEXC=$(FLATEXDIR)/flatex
+FLATEXSDIR=$(FLATEXDIR)/src
+FLATEXMOD=flatex utils
+FLATEXSRC=$(patsubst %, $(FLATEXSDIR)/%.c,$(FLATEXMOD))
+
+REPHRASE=([a-z:A-Z0-9./-]+)
+
+CLSDIR=priv/csl
+CLSSRC=$(CLSDIR)/gost-r-7-0-5-2008-numeric.csl
 
 # Exec
 # -====================================================================-
@@ -156,20 +168,48 @@ convert_all:
 
 convert:  _convertdir _convert
 
-_convert: $(TEXSRC)
+_convert: $(FLTNAME) $(TEXSRC)
 	echo $^			| \
 	tr ' ' '\n' 		| \
 	awk -F. '{print $$0 " -o $(CONVERTDIR)/$(to)/"$$1".$(to)" }' | \
 	xargs -n 3 -P $(PROCN) \
 	pandoc -f latex -t $(to) -sS --self-contained \
-	--bibliography=$(BIBSRC)
+	--bibliography=$(BIBSRC) \
+	--csl $(CLSSRC)
 
-
-_convertdir: $(TEXSRC)
+_convertdir: $(FLTNAME) $(TEXSRC)
 	echo $(^D)			| \
 	tr ' ' '\n' 			| \
 	sed 's/^/$(CONVERTDIR)\/$(to)\//'	| \
 	xargs -n 2 -P $(PROCN) mkdir -p
+
+
+
+$(FLTNAME): $(FLTOUT)
+	sed -re 's/\\cite\{$(REPHRASE)\}/\\citep{\1}/gi' $< \
+	| sed -re 's/\\multirow\{.+\}\{.+\}\{(.+)\}/\1/gi' \
+	> $@;
+
+
+$(FLTOUT):  $(FLTSRC) $(FLATEXC)
+	$(FLATEXC) $<;
+
+$(FLTSRC):  $(TEXSRC) | _mergedir
+	$(foreach file,$^,\
+	sed -re 's/\\subimport\{$(REPHRASE)\}\{$(REPHRASE)\}/\\input{$(shell dirname $(file) \
+		| sed 's/\//\\//gi')\1\2}/gi' $(file) \
+	| sed -re 's/\\import\{$(REPHRASE)\}\{$(REPHRASE)\}/\\input{\1\2}/gi' \
+	> $(FLTDIR)/$(file);)
+
+
+_mergedir: $(TEXSRC)
+	echo $(^D)			| \
+	tr ' ' '\n' 			| \
+	sed 's/^/$(FLTDIR)\//'	| \
+	xargs -n 2 -P $(PROCN) mkdir -p
+
+$(FLATEXC): $(FLATEXSRC)
+	$(CXX) $^ -o $@
 
 
 layout: $(TXTLAYOUT)
@@ -302,55 +342,60 @@ pages: $(TEXPDF)
 
 # Clean
 # --------------------------------------------------
-tilda_clean:
+clean_old:
 	@find ./ -name "*~" -type f -exec rm -f {} \;
 
-pandoc_clean:
-	$(foreach f,$(FORMATS),$(DEL) $(CONVERTDIR)/$(f);)
-
-
 clean_all: clean cleanold
-	$(DEL) "$(TEXNAME).pdf"
-	$(DEL) "$(TEXNAME).html"
+	@$(DEL)				\
+	"$(TEXNAME).pdf"		\
+	"$(TEXNAME).html"
+
+clean_covert:
+	@$(DEL) 			\
+	$(FLTNAME)			\
+	$(FLATEXC)			\
+	$(CONVERTDIR)			\
+	$(FLTDIR)
 
 clean:
-	$(DEL) *.gnuplot
-	$(DEL) *.table
-	$(DEL) "$(TEXNAME).acn"
-	$(DEL) "$(TEXNAME).acr"
-	$(DEL) "$(TEXNAME).alg"
-	$(DEL) "$(TEXNAME).aux"
-	$(DEL) "$(TEXNAME).bbl"
-	$(DEL) "$(TEXNAME).blg"
-	$(DEL) "$(TEXNAME).brf"
-	$(DEL) "$(TEXNAME).glg"
-	$(DEL) "$(TEXNAME).glo"
-	$(DEL) "$(TEXNAME).gls"
-	$(DEL) "$(TEXNAME).idx"
-	$(DEL) "$(TEXNAME).ilg"
-	$(DEL) "$(TEXNAME).ind"
-	$(DEL) "$(TEXNAME).ist"
-	$(DEL) "$(TEXNAME).log"
-	$(DEL) "$(TEXNAME).out"
-	$(DEL) "$(TEXNAME).toc"
-	$(DEL) "$(TEXNAME).xdy"
-	$(DEL) "$(TEXNAME).glo.$(NCODE)"
-	$(DEL) "$(TEXNAME).gls.$(NCODE)"
-	$(DEL) "$(TEXNAME).idx.$(NCODE)"
-	$(DEL) "$(TEXNAME).ind.$(NCODE)"
-	$(DEL) "$(TEXNAME).glo.$(XCODE)"
-	$(DEL) "$(TEXNAME).gls.$(XCODE)"
-	$(DEL) "$(TEXNAME).idx.$(XCODE)"
-	$(DEL) "$(TEXNAME).ind.$(XCODE)"
-	$(DEL) "$(TEXNAME).4ct"
-	$(DEL) "$(TEXNAME).4tc"
-	$(DEL) "$(TEXNAME).idv"
-	$(DEL) "$(TEXNAME).lg"
-	$(DEL) "$(TEXNAME).tmp"
-	$(DEL) "$(TEXNAME).upa"
-	$(DEL) "$(TEXNAME).upb"
-	$(DEL) "$(TEXNAME).xdv"
-	$(DEL) "$(TEXNAME).xref"
-	$(DEL) "$(TEXNAME).css"
-	$(DEL) "$(TEXNAME).dvi"
+	@$(DEL) 			\
+	*.gnuplot			\
+	*.table				\
+	"$(TEXNAME).acn"		\
+	"$(TEXNAME).acr"		\
+	"$(TEXNAME).alg"		\
+	"$(TEXNAME).aux"		\
+	"$(TEXNAME).bbl"		\
+	"$(TEXNAME).blg"		\
+	"$(TEXNAME).brf"		\
+	"$(TEXNAME).glg"		\
+	"$(TEXNAME).glo"		\
+	"$(TEXNAME).gls"		\
+	"$(TEXNAME).idx"		\
+	"$(TEXNAME).ilg"		\
+	"$(TEXNAME).ind"		\
+	"$(TEXNAME).ist"		\
+	"$(TEXNAME).log"		\
+	"$(TEXNAME).out"		\
+	"$(TEXNAME).toc"		\
+	"$(TEXNAME).xdy"		\
+	"$(TEXNAME).glo.$(NCODE)"	\
+	"$(TEXNAME).gls.$(NCODE)"	\
+	"$(TEXNAME).idx.$(NCODE)"	\
+	"$(TEXNAME).ind.$(NCODE)"	\
+	"$(TEXNAME).glo.$(XCODE)"	\
+	"$(TEXNAME).gls.$(XCODE)"	\
+	"$(TEXNAME).idx.$(XCODE)"	\
+	"$(TEXNAME).ind.$(XCODE)"	\
+	"$(TEXNAME).4ct"		\
+	"$(TEXNAME).4tc"		\
+	"$(TEXNAME).idv"		\
+	"$(TEXNAME).lg"			\
+	"$(TEXNAME).tmp"		\
+	"$(TEXNAME).upa"		\
+	"$(TEXNAME).upb"		\
+	"$(TEXNAME).xdv"		\
+	"$(TEXNAME).xref"		\
+	"$(TEXNAME).css"		\
+	"$(TEXNAME).dvi"
 
