@@ -41,6 +41,8 @@
 *.css
 *.dvi
 
+__convertdir/*
+__fltdir/*
 pandoc/*
 export/*
 bin/*
