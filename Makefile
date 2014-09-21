@@ -4,7 +4,7 @@ TEXNAME=survey-cbvr
 HOME=.
 
 TEXSRC1=$(shell find src/ -name "*.tex" -type f | tac )
-TEXSRC2=$(shell find tikz/ -name "*.tex" -type f | tac )
+TEXSRC2=$(shell find vec/ -name "*.tex" -type f | tac )
 TEXSRC=$(TEXNAME).tex $(TEXSRC1) $(TEXSRC2)
 TEXPDF=$(TEXNAME).pdf
 BIBSRC=./src/biblio/main.bib
@@ -34,7 +34,7 @@ HTMLINED=$(TEXNAME).Lined.html
 BIBC=bibtex
 TEXD=xelatex
 TEXF= -interaction=nonstopmode
-TIKZF= -output-directory=tikz-pdf
+VECF= -output-directory=vec-pdf
 TEXC=$(TEXD)
 IDXC=makeindex
 SRTC=sort -u
@@ -45,17 +45,20 @@ PLOTC=gnuplot
 PLOTSRC=$(shell find $(HOME)/ -name "*.gnuplot" | tac )
 PLOTOUT=$(patsubst %.gnuplot, %.table,$(PLOTSRC))
 
-TIKZDIR=tikz
-TIKZSRC=$(TIKZDIR)
-TIKZOUT=$(TIKZDIR)/out
-TIKZPDF=$(TIKZDIR)/pdf
-TIKZPDFBIG=$(TIKZDIR)/pdf-big
-TIKZEPS=$(TIKZDIR)/eps
-TIKZPS=$(TIKZDIR)/ps
-TIKZSVG=$(TIKZDIR)/svg
-TIKZPNG=$(TIKZDIR)/png
-TIKZPNGFAST=$(TIKZDIR)/png/fast
-TIKZPNGBIG=$(TIKZDIR)/png/big
+VECDIR=vec
+VECSRC=$(VECDIR)
+VECOUT=$(VECDIR)/out
+VECPDF=$(VECDIR)/pdf
+VECPDFBIG=$(VECDIR)/pdf-big
+VECEPS=$(VECDIR)/eps
+VECPS=$(VECDIR)/ps
+VECSVG=$(VECDIR)/svg
+VECPNG=$(VECDIR)/png
+VECPNGFAST=$(VECDIR)/png/fast
+VECPNGBIG=$(VECDIR)/png/big
+VECTIFFFAST=$(VECDIR)/tiff/fast
+VECTIFFBIG=$(VECDIR)/tiff/big
+
 
 PROCN=4
 
@@ -73,14 +76,14 @@ CROPC=pdfcrop
 TXTC=pdftotext
 HTMC=pdftohtml
 
-CONVERTDIR=__convertdir
+CONVERTDIR=@convertdir
 FORMATS=native json docx odt epub epub3 fb2 html html5 s5 \
 slidy slideous dzslides docbook opendocument latex beamer \
 context texinfo man markdown markdown_strict \
 markdown_phpextra markdown_github markdown_mmd plain rst \
 mediawiki textile rtf org asciidoc
 
-FLTDIR=__fltdir
+FLTDIR=@fltdir
 FLTSRC1=$(FLTDIR)/$(TEXNAME).tex
 FLTSRC=$(patsubst %, $(FLTDIR)/%,$(TEXSRC))
 
@@ -106,7 +109,7 @@ CLSSRC=$(CLSDIR)/gost-r-7-0-5-2008-numeric.csl
 # Exec
 # -====================================================================-
 
-.PHONY: pandoc tikz tikz_compile
+.PHONY: pandoc vec vec_compile
 
 .SUFFIXES:
 .SUFFIXES: .tex
@@ -198,12 +201,18 @@ $(FLTOUTS):  $(FLTSRC)
 
 fltsrc: $(FLTSRC)
 
-$(FLTSRC):  $(TEXSRC) | _mergedir
+$(FLTSRC):  $(TEXSRC) | _mergedir vec_png
 
 	$(foreach file,$^,\
 	sed -re 's/\\subimport\{$(REPHRASE)\}\{$(REPHRASE)\}/\\input{$(shell readlink -m  $(FLTDIR) | sed 's/\//\\\//gi')\/$(shell dirname $(file) | sed 's/\//\\\//gi')\/\1\2}/gi' $(file) \
+	| sed -re 's/\\import\{vec\/\}\{$(REPHRASE)\}/\n\n\n\n\\centering\n\\includegraphics{$(shell echo $(PWD)/${VECPNGFAST}/ | sed 's/\//\\\//gi' )\1.png}/gi' \
 	| sed -re 's/\\cite\{$(REPHRASE)\}/\\citep{\1}/gi' \
 	| sed -re 's/\\multirow\{.+\}\{.+\}\{(.+)\}/\1/gi' \
+	| sed -re 's/\\Asection/\\section*/gi' \
+	| sed -re 's/\\Csection/\\section*/gi' \
+	| sed -re 's/\\byhand/ /gi' \
+	| sed -re 's/figured/center/gi' \
+	| sed -re 's/\\fcaption/\n\n# Подпись: \\textit/gi' \
 	> $(FLTDIR)/$(file);)
 
 
@@ -246,87 +255,103 @@ $(HTMLINED): $(TEXPDF)
 
 # -------------------------------------------------------------------------
 
-tikz1:
-	mkdir -p $(TIKZOUT)
-	xelatex -output-directory=$(TIKZOUT) $(TIKZSRC)/$(to);
-	mkdir -p $(TIKZPDF)
-	pdfcrop "$(TIKZOUT)/$(to).pdf" "$(TIKZPDF)/$(to).pdf"
-	convert "$(TIKZPDF)/$(to).pdf" "$(TIKZPNGFAST)$(to).png"
-	mkdir -p $(TIKZPDFBIG)
+vec1:
+	mkdir -p $(VECOUT)
+	xelatex -output-directory=$(VECOUT) $(VECSRC)/$(to);
+	mkdir -p $(VECPDF)
+	pdfcrop "$(VECOUT)/$(to).pdf" "$(VECPDF)/$(to).pdf"
+	convert "$(VECPDF)/$(to).pdf" "$(VECPNGFAST)$(to).png"
+	mkdir -p $(VECPDFBIG)
 	gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
 	-dCompatibilityLevel=1.4  -dPDFFitPage -r300 -g3630x2720 \
-	-sOutputFile=$(TIKZPDFBIG)/$(to).pdf $(TIKZPDF)/$(to).pdf
-	mkdir -p $(TIKZPNGBIG);
-	convert "$(TIKZPDFBIG)/$(to).pdf" "$(TIKZPNGBIG)$(to).png"
+	-sOutputFile=$(VECPDFBIG)/$(to).pdf $(VECPDF)/$(to).pdf
+	mkdir -p $(VECPNGBIG);
+	convert "$(VECPDFBIG)/$(to).pdf" "$(VECPNGBIG)$(to).png"
 
 
-tikz: tikz_compile
-	$(MAKE) tikz_plot;
-	$(MAKE) tikz_compile;
-	$(MAKE) tikz_crop;
-	$(MAKE) tikz_eps;
-	$(MAKE) tikz_png;
-	$(MAKE) tikz_png_big;
+vec: vec_compile
+	$(MAKE) vec_plot;
+	$(MAKE) vec_compile;
+	$(MAKE) vec_crop;
+	$(MAKE) vec_eps;
+	$(MAKE) vec_png;
+	$(MAKE) vec_tiff
+	$(MAKE) vec_png_big;
 
-tikz_png:
-	mkdir -p $(TIKZPNGFAST);
-	find $(TIKZPDF) -name "*.pdf" -type f -printf "%h/%f $(TIKZPNGFAST)/%f.png\n" | \
+vec_png:
+	mkdir -p $(VECPNGFAST);
+	find $(VECPDF) -name "*.pdf" -type f -printf "%h/%f $(VECPNGFAST)/%f.png\n" | \
 	sed 's/\.pdf\././' | \
 	xargs -n 2 -P $(PROCN) convert;
 
 
-tikz_png_big: tikz_pdf_big
-	mkdir -p $(TIKZPNGBIG);
-	find $(TIKZPDFBIG) -name "*.pdf" -type f -printf "%h/%f $(TIKZPNGBIG)/%f.png\n" | \
+vec_tiff:
+	mkdir -p $(VECTIFFFAST);
+	find $(VECPDF) -name "*.pdf" -type f -printf "%h/%f $(VECTIFFFAST)/%f.tiff\n" | \
+	sed 's/\.pdf\././' | \
+	xargs -n 2 -P $(PROCN) convert  -density 300;
+
+
+vec_png_big: vec_pdf_big
+	mkdir -p $(VECPNGBIG);
+	find $(VECPDFBIG) -name "*.pdf" -type f -printf "%h/%f $(VECPNGBIG)/%f.png\n" | \
 	sed 's/\.pdf\././' | \
 	xargs -n 2 -P $(PROCN) convert;
 
-tikz_pdf_big:
-	mkdir -p $(TIKZPDFBIG)
-	find $(TIKZPDF) -name "*.pdf" -type f -printf "-sOutputFile=$(TIKZPDFBIG)/%f.big.pdf %h/%f\n" | \
+
+vec_tiff_big: vec_pdf_big
+	mkdir -p $(VECTIFFBIG);
+	find $(VECPDFBIG) -name "*.pdf" -type f -printf "%h/%f $(VECTIFFBIG)/%f.tiff\n" | \
+	sed 's/\.pdf\././' | \
+	xargs -n 2 -P $(PROCN) convert -density 300;
+
+
+vec_pdf_big:
+	mkdir -p $(VECPDFBIG)
+	find $(VECPDF) -name "*.pdf" -type f -printf "-sOutputFile=$(VECPDFBIG)/%f.big.pdf %h/%f\n" | \
 	sed 's/\.pdf\././' | \
 	xargs -n 2 -P $(PROCN) gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
 	-dCompatibilityLevel=1.4  -dPDFFitPage -r300 -g3630x2720
 
-tikz_eps:
-	mkdir -p $(TIKZEPS);
-	find $(TIKZPDF) -name "*.pdf" -type f -printf "%h/%f $(TIKZEPS)/%f.ps\n" | \
+vec_eps:
+	mkdir -p $(VECEPS);
+	find $(VECPDF) -name "*.pdf" -type f -printf "%h/%f $(VECEPS)/%f.ps\n" | \
 	sed 's/\.pdf\././' | \
 	xargs -n 2 -P $(PROCN) pdf2ps
-	find $(TIKZEPS) -name "*.ps" -type f -exec ps2eps -a -f {} \;
+	find $(VECEPS) -name "*.ps" -type f -exec ps2eps -a -f {} \;
 
 
 
-tikz_png_ink:
-	mkdir -p $(TIKZPNG);
-	find $(TIKZPDF) -name "*.pdf" -type f -printf "--file=%h/%f --export-eps=$(TIKZPNG)/%f.png\n" | \
+vec_png_ink:
+	mkdir -p $(VECPNG);
+	find $(VECPDF) -name "*.pdf" -type f -printf "--file=%h/%f --export-eps=$(VECPNG)/%f.png\n" | \
 	sed 's/\.pdf\././' | \
 	xargs -n 2 -P $(PROCN) inkscape --without-gui
 
-tikz_svg_ink:
-	mkdir -p $(TIKZSVG);
-	find $(TIKZPDF) -name "*.pdf" -type f -printf "--file=%h/%f --export-eps=$(TIKZSVG)/%f.svg\n" | \
+vec_svg_ink:
+	mkdir -p $(VECSVG);
+	find $(VECPDF) -name "*.pdf" -type f -printf "--file=%h/%f --export-eps=$(VECSVG)/%f.svg\n" | \
 	sed 's/\.pdf\././' | \
 	xargs -n 2 -P $(PROCN) inkscape --without-gui
 
-tikz_eps_ink:
-	mkdir -p $(TIKZEPS);
-	find $(TIKZPDF) -name "*.pdf" -type f -printf "--file=%h/%f --export-eps=$(TIKZEPS)/%f.eps\n" | \
+vec_eps_ink:
+	mkdir -p $(VECEPS);
+	find $(VECPDF) -name "*.pdf" -type f -printf "--file=%h/%f --export-eps=$(VECEPS)/%f.eps\n" | \
 	sed 's/\.pdf\././' | \
 	xargs -n 2 -P $(PROCN) inkscape --without-gui
 
-tikz_crop:
-	mkdir -p $(TIKZPDF);
-	find $(TIKZOUT) -name "*.pdf" -type f -printf "%h/%f $(TIKZPDF)/%f\n" | \
+vec_crop:
+	mkdir -p $(VECPDF);
+	find $(VECOUT) -name "*.pdf" -type f -printf "%h/%f $(VECPDF)/%f\n" | \
 	xargs -n 2 -P $(PROCN) $(CROPC)
 
-tikz_compile:
-	mkdir -p $(TIKZOUT);
-	find $(TIKZSRC) -name "*.tex" -type f  -print0 | \
-	xargs -0 -n 1 -P $(PROCN) $(TEXC) -output-directory=$(TIKZOUT)
+vec_compile:
+	mkdir -p $(VECOUT);
+	find $(VECSRC) -name "*.tex" -type f  -print0 | \
+	xargs -0 -n 1 -P $(PROCN) $(TEXC) -output-directory=$(VECOUT)
 
-tikz_plot:
-	cd $(TIKZOUT) \
+vec_plot:
+	cd $(VECOUT) \
 	&& find ./ -name "*.gnuplot" -type f -exec gnuplot {} \;
 
 
