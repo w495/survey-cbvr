@@ -1,0 +1,68 @@
+\documentclass[utf8x,14pt]{extarticle}
+
+\usepackage{styles/ginit}
+
+
+\begin{document}
+
+\sf\normalsize
+\tikzXmindmap{
+    \path[
+        level 1 concept/.append style={sibling angle=90},
+        level 2 concept/.append style={sibling angle=90},
+        mindmap
+    ]
+        node[concept] {\LARGE Признаки} [clockwise from=40]
+            child {
+                node[concept] {\Large Кадры} [clockwise from=-5]
+                child {
+                    node[concept] {\large Цвет}
+                }
+                child {
+                    node[concept] {\small Текстура}
+                }
+                child {
+                    node[concept] {\small Контуры}
+                }
+                child {
+                    node[concept] {\large Края}
+                }
+            }
+            child {
+                node[concept] {\normalsize Объекты} [clockwise from=45]
+                child [grow=45] {
+                    node[concept] {\small Цвет}
+                }
+                child [grow=-70] {
+                    node[concept] {\small Текстура}
+                }
+                child [grow=-180] {
+                    node[concept] {\small Размер}
+                }
+            }
+            child  {
+                node[concept] {\small Движение}
+                child [grow=160] {
+                    node[concept] {Камеры}
+                }
+                child [grow=280] {
+                    node[concept] {Объектов}
+                }
+            }
+            child {
+                node[concept] {\Large Звук}
+                child [grow=36] {
+                    node[concept] {\small Средняя \\ частота}
+                }
+                child [grow=108] {
+                    node[concept] {\normalsize  Шумы}
+                }
+                child [grow=180] {
+                    node[concept] {\small Музыка}
+                }
+                child [grow=252] {
+                    node[concept] {\large  Речь}
+                }
+            };
+}
+\end{document}

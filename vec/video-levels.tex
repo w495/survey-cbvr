@@ -1,0 +1,69 @@
+\documentclass[utf8x,14pt]{extarticle}
+
+\usepackage{styles/ginit}
+
+\begin{document}
+
+\sf
+\tikzXmindmap{
+    \path[
+        level 1 concept/.append style={sibling angle=120},
+        mindmap
+    ]
+        node[concept] {
+                        {\large Уровни}
+                        {\normalsize классификации}
+                        {\LARGE видео}} [clockwise from=90]
+            child {
+                node[concept] {\large Жанры} [clockwise from=-150]
+                child {
+                    node[concept] {фильмы}
+                }
+                child {
+                    node[concept] {реклама}
+                }
+                child {
+                    node[concept] {новости}
+                }
+                child {
+                    node[concept] {мульт\-фильмы}
+                }
+                child {
+                    node[concept] {спорт}
+                }
+            }
+            child {
+                node[concept] {\normalsize События} [clockwise from=60]
+                child {
+                    node[concept] {\it любое явление}
+                }
+                child {
+                    node[concept] {\it принято зрителем}
+                }
+                child {
+                    node[concept] {\it влияет на сюжет}
+                }
+                child {
+                    node[concept] {\it под\-события}
+                }
+            }
+            child {
+                node[concept] {\normalsize Объекты} [clockwise from=-30]
+                child {
+                    node[concept] {прибли\-жается}
+                }
+                child {
+                    node[concept] {удаля\-ется}
+                }
+                child {
+                    node[concept] {не двигается}
+                }
+                child {
+                    node[concept] {человек}
+                }
+                child {
+                    node[concept] {здание}
+                }
+            };
+}
+\end{document}
