@@ -27,7 +27,7 @@
 %%% отступы параграфов
 %%%
 
-	\usepackage{indentfirst}
+	%\usepackage{indentfirst}
 	%\setlength{\parindent}{-1.5em}
 	
 	\setlength{\parskip}{1.5ex plus 1.5ex minus 1.2ex}
@@ -37,8 +37,12 @@
 %%% Делаем номер станиц не выделяемыми.
 %%%
     \usepackage{fancyhdr}
+    \newcommand{\headauth}[1]{#1}
+    \newcommand{\headname}[1]{#1}
+
     \fancypagestyle{plain}{%
         \fancyhf{}%
+        \fancyhead[C]{\squelch{\tiny\typewriter\headname{\thepage}}}
         \fancyfoot[C]{\squelch{\thepage}}%
         \renewcommand{\headrulewidth}{0pt}%
         \renewcommand{\footrulewidth}{0pt}%

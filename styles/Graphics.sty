@@ -154,3 +154,20 @@
         ]#1\end{scope}
     \end{tikzpicture}
 }
+
+
+\newcommand{\tikzXmindmapTitle}[1]{
+    \sf
+    \begin{tikzpicture}[very thick, scale=.30,
+            concept color=white,
+            every node/.style={scale=.30},
+            outer sep=2pt
+        ]#1
+        \begin{scope}[
+            on background layer,
+            scale=1.0,
+            every node/.style={scale=0.35},
+            concept color=red
+        ]#1\end{scope}
+    \end{tikzpicture}
+}
