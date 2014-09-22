@@ -1,0 +1,68 @@
+\documentclass[utf8x,14pt]{extarticle}
+
+\usepackage{styles/ginit}
+
+
+\begin{document}
+
+\sf\normalsize
+\tikzXmindmapTitle{
+    \path[
+        level 1 concept/.append style={sibling angle=90},
+        level 2 concept/.append style={sibling angle=90},
+        mindmap
+    ]
+        node[concept] {} [clockwise from=40]
+            child {
+                node[concept] {} [clockwise from=-5]
+                child {
+                    node[concept] {}
+                }
+                child {
+                    node[concept] {}
+                }
+                child {
+                    node[concept] {}
+                }
+                child {
+                    node[concept] {}
+                }
+            }
+            child {
+                node[concept] {} [clockwise from=45]
+                child [grow=45] {
+                    node[concept] {}
+                }
+                child [grow=-70] {
+                    node[concept] {}
+                }
+                child [grow=-180] {
+                    node[concept] {}
+                }
+            }
+            child  {
+                node[concept] {}
+                child [grow=160] {
+                    node[concept] {}
+                }
+                child [grow=280] {
+                    node[concept] {}
+                }
+            }
+            child {
+                node[concept] {}
+                child [grow=36] {
+                    node[concept] {}
+                }
+                child [grow=108] {
+                    node[concept] {}
+                }
+                child [grow=180] {
+                    node[concept] {}
+                }
+                child [grow=252] {
+                    node[concept] {}
+                }
+            };
+}
+\end{document}
