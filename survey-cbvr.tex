@@ -33,19 +33,34 @@
     pdfkeywords={\workpdfkeywords}
 }
 
+
+\renewcommand{\headname}[1]{%
+    %\pdfdate#1
+    © Ilya \href{mailto:w@w-495.ru}{w495} Nikitin~— %
+    An Overview Of Complex Content-Based Video Retrieval, %
+    Обзор методов комплексного ассоциативного поиска видео,
+    2014.%
+}
+
 \begin{document}
     \begin{onehalfspacing}
+        \subimport{src/}{cover}
+        %\subimport{src/}{titlepage}
+        \subimport{src/}{preface}
+        \pagebreak
         % содержание
-        \subimport{src/}{titlepage}
         \tableofcontents
         \pagebreak
         %\printglossary[title=Словарь терминов,toctitle=Словарь терминов]
         %\pagebreak
         % обзор
+        \pagebreak
         \subimport{src/}{survey}
         \pagebreak
         % список использованных источников
         \subimport{src/}{biblio}
+
+        \subimport{src/}{postface}
         \printindex
     \end{onehalfspacing}
 \end{document}

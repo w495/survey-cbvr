@@ -103,6 +103,8 @@ FLATEXSRC=$(patsubst %, $(FLATEXSDIR)/%.c,$(FLATEXMOD))
 
 REPHRASE=([a-z:A-Z0-9./-]+)
 
+COMMIT=$(shell git show | grep commit | cut -d' ' -f2)
+
 CLSDIR=priv/csl
 CLSSRC=$(CLSDIR)/gost-r-7-0-5-2008-numeric.csl
 
