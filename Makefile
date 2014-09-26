@@ -184,6 +184,7 @@ _convert: $(FLTOUTS) $(TEXSRC)
 	awk -F. '{print $$0 " -o $(CONVERTDIR)/$(to)/"$$1".$(to)" }' | \
 	xargs -n 3 -P $(PROCN) \
 	pandoc -f latex -t $(to) -sS --self-contained \
+	--toc \
 	--bibliography=$(BIBSRC) \
 	--csl $(CLSSRC)
 
