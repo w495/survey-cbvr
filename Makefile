@@ -101,6 +101,10 @@ FLATEXSDIR=$(FLATEXDIR)/src
 FLATEXMOD=flatex utils
 FLATEXSRC=$(patsubst %, $(FLATEXSDIR)/%.c,$(FLATEXMOD))
 
+TYPODIR=priv/typo
+TYPOSOFTC=$(TYPODIR)/soft.py
+TYPOC=$(TYPODIR)/typo.py
+
 REPHRASE=([a-z:A-Z0-9./-]+)
 
 COMMIT=$(shell git show | grep commit | cut -d' ' -f2)
@@ -201,7 +205,7 @@ $(FLTOUTS):  $(FLTSRC)
 
 typo:  $(TEXSRC_TEXT)
 	$(foreach file,$^,\
-		cat $(file) | python3 ./priv/typo.py > $(file).typo;\
+		cat $(file) | $(TYPOSOFTC) > $(file).typo;\
 		mv $(file).typo $(file);)
 
 
