@@ -183,10 +183,7 @@ _convert: $(FLTOUTS) $(TEXSRC)
 	tr ' ' '\n' 		| \
 	awk -F. '{print $$0 " -o $(CONVERTDIR)/$(to)/"$$1".$(to)" }' | \
 	xargs -n 3 -P $(PROCN) \
-	pandoc -f latex -t $(to) -sS --self-contained \
-	--toc \
-	--bibliography=$(BIBSRC) \
-	--csl $(CLSSRC)
+	pandoc -f latex -t $(to) -sS --self-contained --toc --bibliography=$(BIBSRC) --csl $(CLSSRC)
 
 _convertdir: $(FLTOUTS) $(TEXSRC)
 	echo $(^D)			| \
@@ -202,20 +199,29 @@ $(FLTOUTS):  $(FLTSRC)
 	$(foreach file,$^,$(FLATEXC) $(file) $(file).flt;)
 
 
+typo:  $(TEXSRC)
+	$(foreach file,$^,\
+		cat $(file) | python3 ./priv/typo.py > $(file).typo;\
+		mv $(file).typo $(file);)
+
+
 fltsrc: $(FLTSRC)
 
 $(FLTSRC):  $(TEXSRC) | _mergedir vec_png
 
 	$(foreach file,$^,\
 	sed -re 's/\\subimport\{$(REPHRASE)\}\{$(REPHRASE)\}/\\input{$(shell readlink -m  $(FLTDIR) | sed 's/\//\\\//gi')\/$(shell dirname $(file) | sed 's/\//\\\//gi')\/\1\2}/gi' $(file) \
-	| sed -re 's/\\import\{vec\/\}\{$(REPHRASE)\}/\n\n\n\n\\centering\n\\includegraphics{$(shell echo $(PWD)/${VECPNGFAST}/ | sed 's/\//\\\//gi' )\1.png}/gi' \
+	| sed -re 's/\%.*//gi' \
+	| sed -re 's/\\pagebreak//gi' \
+	| sed -re 's/\\import\{vec\/\}\{$(REPHRASE)\}/\\includegraphics{$(shell echo $(PWD)/${VECPNGFAST}/ | sed 's/\//\\\//gi' )\1.png}/gi' \
 	| sed -re 's/\\cite\{$(REPHRASE)\}/\\citep{\1}/gi' \
 	| sed -re 's/\\multirow\{.+\}\{.+\}\{(.+)\}/\1/gi' \
 	| sed -re 's/\\Asection/\\section*/gi' \
 	| sed -re 's/\\Csection/\\section*/gi' \
 	| sed -re 's/\\byhand/ /gi' \
+	| sed -re 's/figuredt/center/gi' \
 	| sed -re 's/figured/center/gi' \
-	| sed -re 's/\\fcaption/\n\n# Подпись: \\textit/gi' \
+	| sed -re 's/\\fcaption/# Подпись: \\textit/gi' \
 	> $(FLTDIR)/$(file);)
 
 
