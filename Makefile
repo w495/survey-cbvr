@@ -3,9 +3,9 @@ TEXNAME=survey-cbvr
 
 HOME=.
 
-TEXSRC1=$(shell find src/ -name "*.tex" -type f | tac )
-TEXSRC2=$(shell find vec/ -name "*.tex" -type f | tac )
-TEXSRC=$(TEXNAME).tex $(TEXSRC1) $(TEXSRC2)
+TEXSRC_TEXT=$(shell find src/ -name "*.tex" -type f | tac )
+TEXSRC_VEC=$(shell find vec/ -name "*.tex" -type f | tac )
+TEXSRC=$(TEXNAME).tex $(TEXSRC_TEXT) $(TEXSRC_VEC)
 TEXPDF=$(TEXNAME).pdf
 BIBSRC=./src/biblio/main.bib
 
@@ -199,7 +199,7 @@ $(FLTOUTS):  $(FLTSRC)
 	$(foreach file,$^,$(FLATEXC) $(file) $(file).flt;)
 
 
-typo:  $(TEXSRC)
+typo:  $(TEXSRC_TEXT)
 	$(foreach file,$^,\
 		cat $(file) | python3 ./priv/typo.py > $(file).typo;\
 		mv $(file).typo $(file);)
