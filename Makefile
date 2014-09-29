@@ -201,12 +201,11 @@ fltout: $(FLTOUTS)
 
 $(FLTOUTS):  $(FLTSRC)
 	$(foreach file,$^,$(FLATEXC) $(file) $(file).flt;)
+	$(foreach file,$^,cat $(file).flt | $(TYPOSOFTC) | tee $(file) 1> /dev/null;)
 
 
 typo:  $(TEXSRC_TEXT)
-	$(foreach file,$^,\
-		cat $(file) | $(TYPOSOFTC) > $(file).typo;\
-		mv $(file).typo $(file);)
+	$(foreach file,$^,cat $(file) | $(TYPOSOFTC) | tee $(file) 1> /dev/null;)
 
 
 fltsrc: $(FLTSRC)
