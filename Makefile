@@ -205,7 +205,8 @@ $(FLTOUTS):  $(FLTSRC)
 
 
 typo:  $(TEXSRC_TEXT)
-	$(foreach file,$^,cat $(file) | $(TYPOSOFTC) | tee $(file) &> /dev/null;)
+	$(foreach file,$^,cat $(file) | $(TYPOSOFTC) &> $(file).tmp \
+		&& cat $(file).tmp | tee $(file) &> /dev/null && $(file).tmp; )
 
 
 fltsrc: $(FLTSRC)
