@@ -201,13 +201,12 @@ fltout: $(FLTOUTS)
 
 $(FLTOUTS):  $(FLTSRC)
 	$(foreach file,$^,$(FLATEXC) $(file) $(file).flt;)
-	$(foreach file,$^,cat $(file).flt | $(TYPOSOFTC) | tee $(file) &> /dev/null;)
-
+	$(foreach file,$^,(cat $(file).flt | unix2dos | $(TYPOSOFTC) &> $(file).tmp) \
+		&& (cat $(file).tmp | tee $(file).flt &> /dev/null && rm $(file).tmp); )
 
 typo:  $(TEXSRC_TEXT)
-	$(foreach file,$^,(cat $(file) | $(TYPOSOFTC) &> $(file).tmp) \
+	$(foreach file,$^,(cat $(file) | unix2dos | $(TYPOSOFTC) &> $(file).tmp) \
 		&& (cat $(file).tmp | tee $(file) &> /dev/null && rm $(file).tmp); )
-
 
 fltsrc: $(FLTSRC)
 
