@@ -5,38 +5,83 @@
 \begin{document}
 
 \sf
+\tikzstyle{shortlinkf} = [
+   circle connection bar,decorate,decoration={amplitude=0.01cm,angle=20}
+]
+
+\tikzstyle{longlinkf} = [
+   circle connection bar,decorate,decoration={amplitude=0.01cm,angle=35}
+]
+
+
+
 \tikzXmindmap{
-    \path[mindmap]
-        node[concept] {\Huge Видео} [clockwise from=0]
+    \path[
+        level 1 concept/.append style={sibling angle=90},
+        level 2 concept/.append style={sibling angle=90},
+        mindmap
+    ]
+        node[concept] {\Huge Видео} [clockwise from=45]
             child {
-                node[concept] {\Large Мета} [clockwise from=30]
-                    child {
+                node[concept] {\Large Мета} [clockwise from=0]
+                    child [grow=0] {
                         node[concept] {\footnotesize заголовок}
                     }
-                    child {
+                    child [grow=72] {
                         node[concept] {\large автор}
                     }
-                    child {
-                        node[concept] {\footnotesize описание }
+                    child [grow=144] {
+                        node (caption) [concept] {\footnotesize субтитры }
+                    }
+                    child [grow=288] {
+                        node (description) [concept] {\footnotesize описание }
                     }
             }
             child {
                 node[concept] {\large Кадры}
-            }
-            child {
-                node[concept] {\Large Текст}
-            }
-            child {
-                node[concept] {\huge Звук} [clockwise from=270]
                     child {
-                        node[concept] {\large речь}
+                        node (events) [concept] {\footnotesize события }
+                    }
+                    child {
+                        node[concept] {\footnotesize объекты }
+                    }
+                    child {
+                        node (back) [concept] {\large фон}
+                    }
+            }
+            child {
+                node[concept] {\huge Звук} [clockwise from=-45]
+                    child {
+                        node (noise) [concept] {\large шумы}
                     }
                     child {
                         node[concept] {\normalsize музыка}
                     }
                     child {
-                        node[concept] {\large шумы}
+                        node (voice) [concept] {\large голос}
                     }
+            }
+            child {
+                node[concept] {\Large Текст} [clockwise from=-135]
+                child {
+                    node (speech) [concept] {\large речь }
+                }
+                child {
+                    node [concept] {\footnotesize надписи }
+                }
+                child {
+                    node (ocr) [concept] {\footnotesize OCR субтитры }
+                }
             };
+
+        \path (voice) to[longlinkf] (speech) ;
+
+        \path (ocr) to[shortlinkf] (caption) ;
+
+        \path (events) to[shortlinkf] (description) ;
+
+        \path (back) to[longlinkf] (noise) ;
+
+
 }
 \end{document}
