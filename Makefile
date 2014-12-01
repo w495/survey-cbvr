@@ -214,6 +214,9 @@ $(FLTSRC):  $(TEXSRC) | _mergedir vec_png
 
 	$(foreach file,$^,\
 	sed -re 's/\\subimport\{$(REPHRASE)\}\{$(REPHRASE)\}/\\input{$(shell readlink -m  $(FLTDIR) | sed 's/\//\\\//gi')\/$(shell dirname $(file) | sed 's/\//\\\//gi')\/\1\2}/gi' $(file) \
+	| sed -re 's/.+%!nopandoc(.*)/\1/gi' \
+	| sed -re 's/%!pandoc//gi' \
+	| sed -re 's/\\npd.*\{(.*)\}/\1/gi' \
 	| sed -re 's/\%.*//gi' \
 	| sed -re 's/\\pagebreak//gi' \
 	| sed -re 's/\\import\{vec\/\}\{$(REPHRASE)\}/\\includegraphics{$(shell echo $(PWD)/${VECPNGFAST}/ | sed 's/\//\\\//gi' )\1.png}/gi' \
