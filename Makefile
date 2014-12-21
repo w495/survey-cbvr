@@ -1,7 +1,7 @@
 TEXNAME=survey-cbvr
 
 
-HOME=.
+FHOME=.
 
 TEXSRC_TEXT=$(shell find src/ -name "*.tex" -type f | tac )
 TEXSRC_VEC=$(shell find vec/ -name "*.tex" -type f | tac )
@@ -33,6 +33,8 @@ HTMLINED=$(TEXNAME).Lined.html
 # --------------------------------------
 BIBC=bibtex
 TEXD=xelatex
+# latex pdflatex xelatex
+
 TEXF= -interaction=nonstopmode
 VECF= -output-directory=vec-pdf
 TEXC=$(TEXD)
@@ -42,7 +44,7 @@ RNMC=mv
 
 
 PLOTC=gnuplot
-PLOTSRC=$(shell find $(HOME)/ -name "*.gnuplot" | tac )
+PLOTSRC=$(shell find $(FHOME)/ -name "*.gnuplot" | tac )
 PLOTOUT=$(patsubst %.gnuplot, %.table,$(PLOTSRC))
 
 VECDIR=vec
@@ -187,7 +189,7 @@ _convert: $(FLTOUTS) $(TEXSRC)
 	tr ' ' '\n' 		| \
 	awk -F. '{print $$0 " -o $(CONVERTDIR)/$(to)/"$$1".$(to)" }' | \
 	xargs -n 3 -P $(PROCN) \
-	pandoc -f latex -t $(to) -sS --self-contained --toc --bibliography=$(BIBSRC) --csl $(CLSSRC)
+	pandoc -f latex  --latex-engine=xelatex -t $(to)  -sS --self-contained --toc --bibliography=$(BIBSRC) --csl $(CLSSRC)
 
 _convertdir: $(FLTOUTS) $(TEXSRC)
 	echo $(^D)			| \
@@ -217,7 +219,6 @@ $(FLTSRC):  $(TEXSRC) | _mergedir vec_png
 	| sed -re 's/.+%!nopandoc(.*)/\1/gi' \
 	| sed -re 's/%!pandoc//gi' \
 	| sed -re 's/\\npd.*\{(.*)\}/\1/gi' \
-	| sed -re 's/\%.*//gi' \
 	| sed -re 's/\\pagebreak//gi' \
 	| sed -re 's/\\import\{vec\/\}\{$(REPHRASE)\}/\\includegraphics{$(shell echo $(PWD)/${VECPNGFAST}/ | sed 's/\//\\\//gi' )\1.png}/gi' \
 	| sed -re 's/\\cite\{$(REPHRASE)\}/\\citep{\1}/gi' \

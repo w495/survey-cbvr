@@ -37,33 +37,31 @@
     \setsansfont{Calibri}
     \setmonofont{Times New Roman}
     \setromancyrfont{Liberation Mono}
-    \newcommand{\constantia}{\fontspec{Constantia}}
-    \newcommand{\freeserif}{\fontspec{FreeSerif}}
-    \newcommand{\droidserif}{\fontspec{Droid Serif}}
-    \newcommand{\libertine}{\fontspec{Linux Libertine G}}
-    \newcommand{\biolinum}{\fontspec{Linux Biolinum G}}
-    \newcommand{\liberation}{\fontspec{Liberation Serif}}
-    \newcommand{\comic}{\fontspec{Comic Sans MS}}
-    \newcommand{\magic}{\fontspec{MagicC}}
-    \newcommand{\decor}{\fontspec{DecorC}}
 
-    \newcommand{\poluustav}{\fontspec{FitaPoluustavC}}
-    \newcommand{\shablon}{\fontspec{ShablonC}}
-    \newcommand{\typewriter}{\fontspec{CM Typewriter Cyrillic}}
-
-    \newcommand{\zhikharev}{\fontspec{ZhikharevC}}
-    \newcommand{\bedrock}{\fontspec{BedrockC}}
-
-
-    \newcommand{\nataliscript}{\fontspec{NataliScriptC}}
-    \newcommand{\perfo}{\fontspec{Perfo}}
-    \newcommand{\electronica}{\fontspec{ElectronicaC}}
-
-    \newcommand{\hover}{\fontspec{HoverC}}
 
     \newcommand{\mechanica}{\fontspec{Mechanica}}
+    \newcommand{\typewriter}{\fontspec{CM Typewriter Cyrillic}}
+    \newcommand{\nataliscript}{\fontspec{NataliScriptC}}
 
     \newcommand{\byhand}[1]{\underline{\nataliscript \ #1\ }}
+
+    % \newcommand{\constantia}{\fontspec{Constantia}}
+    % \newcommand{\freeserif}{\fontspec{FreeSerif}}
+    % \newcommand{\droidserif}{\fontspec{Droid Serif}}
+    % \newcommand{\libertine}{\fontspec{Linux Libertine G}}
+    % \newcommand{\biolinum}{\fontspec{Linux Biolinum G}}
+    % \newcommand{\liberation}{\fontspec{Liberation Serif}}
+    % \newcommand{\comic}{\fontspec{Comic Sans MS}}
+    % \newcommand{\magic}{\fontspec{MagicC}}
+    % \newcommand{\decor}{\fontspec{DecorC}}
+    % \newcommand{\poluustav}{\fontspec{FitaPoluustavC}}
+    % \newcommand{\shablon}{\fontspec{ShablonC}}
+    % \newcommand{\zhikharev}{\fontspec{ZhikharevC}}
+    % \newcommand{\bedrock}{\fontspec{BedrockC}}
+    % \newcommand{\nataliscript}{\fontspec{NataliScriptC}}
+    % \newcommand{\perfo}{\fontspec{Perfo}}
+    % \newcommand{\electronica}{\fontspec{ElectronicaC}}
+    % \newcommand{\hover}{\fontspec{HoverC}}
 
 
     \usepackage[math-style=ISO]{unicode-math}
@@ -80,7 +78,6 @@
     \ifpdf
         \usepackage{cmap}
     \fi
-    \usepackage[english,russian]{babel}
     %\usepackage[T1]{fontenc}
     \usepackage[T2A]{fontenc}
     %\usepackage[T2B]{fontenc}
@@ -89,13 +86,27 @@
     %\usepackage{charter}
     %\usepackage{times}
 
-    \usepackage[utf8x]{inputenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage[english,russian]{babel}
+    \selectlanguage{russian}
+
+
+    \DeclareUnicodeCharacter{0301}{\!\!\!\!\textasciiacute}
+    \DeclareUnicodeCharacter{03B1}{$\alpha$}
+    \DeclareUnicodeCharacter{FE6A}{\%}
+
+
+    \newcommand{\mechanica}{{\sf}}
+    \newcommand{\typewriter}{{\tt}}
+    \newcommand{\byhand}[1]{\underline{\it #1}}
 
     \usepackage{etex}
     \frenchspacing
     \input{glyphtounicode}
     \pdfgentounicode=1
     \pdfcompresslevel=0
+
+
 
 }
 
