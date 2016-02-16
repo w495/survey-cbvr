@@ -106,19 +106,19 @@
     \begin{tikzpicture}[very thick,node distance=8em]
 
         \begin{pgfonlayer}{background}
-            \node[videof,label={Видео}] (video) {};
+            \node[videof,label={\Large Видео}] (video) {};
 
-            \node[scenef,label={[xshift=8em]Сцены},
+            \node[scenef,label={[xshift=8em]\Large Сцены},
                 below of=video, xshift=-8em] (scene1) {};
             \node[scenef, right of=scene1, xshift=8em] (scene2) {};
 
-            \node[shotf,label={[xshift=12em]Съемки},
+            \node[shotf,label={[xshift=12em]\Large Съёмки},
                 below of=scene1, xshift=-4em] (shot1) {};
             \node[shotf, right of=shot1] (shot2) {};
             \node[shotf, right of=shot2] (shot3) {};
             \node[shotf, right of=shot3] (shot4) {};
 
-            \node[frame1f,label={[xshift=15em]Ключевые кадры},
+            \node[frame1f,label={[xshift=15em]\Large Ключевые кадры},
                 below of=shot1, xshift=-3em] (frame11) {};
             \begin{scope}[node distance=2em]
                 \node[frame1f, right of=frame11] (frame12) {};
