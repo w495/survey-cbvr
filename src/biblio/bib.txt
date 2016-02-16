@@ -1,0 +1,125 @@
+ REFERENCES
+
+
+
+[1] M. Lew, N. Sebe, C. Djeraba, and R. Jain, "Content-based multimedia information retrieval: State of the art and challenges", ACM Transactions on Multimedia ..., vol. 2, no. 1, pp. 1–19, 2006.
+
+[2] Y. Peng and C.-W. Ngo, "Hot event detection and summarization by graph modeling and matching", in Image and Video Retrieval. Springer, 2005, pp. 257–266.
+
+[3] P. Over, G. M. Awad, J. Fiscus, M. Michel, A. F. Smeaton, and W. Kraaij, "Trecvid 2009-goals, tasks, data, evaluation mechanisms and metrics", 2010.
+
+[4] A. F. Smeaton, P. Over, and A. R. Doherty, "Video shot boundary detection: Seven years of TRECVid activity", Computer Vision and Image Understanding, vol. 114, no. 4, pp. 411–418, Apr. 2010.
+
+[5] A. F. Smeaton, P. Over, and W. Kraaij, "High-level feature detection from video in trecvid: a 5-year retrospective of achievements", in Multimedia content analysis. Springer, 2009, pp. 1–24.
+
+[6] F. Pereira, a. Vetro, and T. Sikora, "Multimedia Retrieval and Delivery: Essential Metadata Challenges and Standards", Proceedings of the IEEE, vol. 96, no. 4, pp. 721–744, Apr. 2008.
+
+[7] R. V. Babu and K. Ramakrishnan, "Compressed domain video retrieval using object and global motion descriptors", Multimedia Tools and Applications, vol. 32, no. 1, pp. 93–113, 2007.
+
+[8] A. F. Smeaton, "Techniques open challenges to the analysis, used and indexing and retrieval of digital video", Information Systems, vol. 32, no. 4, pp. 545–559, 2007.
+
+[9] Y. Y. Chung, W. J. Chin, X. Chen, D. Y. Shi, E. Choi, and F. Chen, "Content-based video retrieval system using wavelet transform." WSEAS Transactions on Circuits and Systems, vol. 6, no. 2, pp. 259– 265, 2007.
+
+[10] C. G. M. Snoek and M. Worring, "Concept-Based Video Retrieval", Foundations and Trends in Information Retrieval, vol. 2, no. 4, pp. 215–322, 2007.
+
+[11] K. Schoeffmann, F. Hopfgartner, Marques, L. Boeszoermenyi, and O. J. M. Jose, "Video browsing interfaces and applications: a review", SPIE Reviews, vol. 1, no. 1, p. 018004, 2010.
+
+[12] W. Ren, S. Singh, M. Singh, and Y. Zhu, "State-of-the-art on spatiotemporal information-based video retrieval", Pattern Recognition, vol. 42, no. 2, pp. 267–282, Feb. 2009.
+
+[13] C. Yeo, Y.-w. Zhu, Q. Sun, and S.-f. Framework Sub- Chang, "A forWindow Shot Detection", 11th International Multimedia Modelling Conference, pp. 84–91, 2005.
+
+[14] J. Yuan, H. Wang, L. Xiao, W. Zheng, J. Li, F. Lin, and B. Zhang, "A Formal Study of Shot Boundary Detection", IEEE Transactions on Circuits and Systems for Video Technology, vol. 17, no. 2, pp. 168– 186, Feb. 2007.
+
+[15] S. Chantamunee and Y. Gotoh, "University of sheffield at trecvid 2007: Shot boundary detection and rushes summarisation." in TRECVID. Citeseer, 2007.
+
+[16] S. C. Hoi, L. L. Wong, and A. Lyu, "Chinese university of hongkong at trecvid 2006: Shot boundary detection and video search", in TRECVid 2006 Workshop, 2006, pp. 76–86.
+
+[17] Z.-C. Zhao and A.-N. Cai, "Shot boundary detection algorithm in compressed domain based on adaboost and fuzzy theory", in Advances in Natural Computation. Springer, 2006, pp. 617–626.
+
+[18] S. V. Porter, "Video segmentation and indexing using motion estimation", Ph.D. dissertation, University of Bristol, 2004.
+
+[19] Y. Chang, D. J. Lee, Y. Hong, and J. Archibald, "Unsupervised Video Shot Detection Using Clustering Ensemble with a Color Global Scale- Invariant Feature Transform Descriptor", EURASIP Journal on Image and Video Processing, vol. 2008, pp. 1–10, 2008.
+
+[20] X. Wu, P. C. Yuen, C. Liu, and J. Huang, "Shot Boundary Detection: An Information Saliency Approach", 2008 Congress on Image and Signal Processing, pp. 808–812, 2008.
+
+[21] X. Gao, J. Li, and Y. Shi, "A video shot boundary detection algorithm based on feature tracking", in Rough Sets and Knowledge Technology. Springer, 2006, pp. 651–658.
+
+[22] G. Camara-Chavez, F. Precioso, M. Cord, S. Phillip-Foliguet, and A. de A Araujo, "Shot boundary detection by a hierarchical supervised approach", in Systems, Signals and Image Processing, 2007 and 6 th EURASIP Conference focused on Speech and Image Processing, Multimedia Communications and Services. 14th International Workshop on. IEEE, 2007, pp. 197–200.
+
+[23] H. Lu, Y.-P. Tan, X. Xue, and L. Wu, "Shot boundary detection using unsupervised clustering and hypothesis testing", in Communications, Circuits and Systems, 2004. ICCCAS 2004. 2004 International Conference on, vol. 2. IEEE, 2004, pp. 932–936.
+
+[24] M. Cooper, T. Liu, and E. Rieffel, "Video segmentation via temporal pattern classification", Multimedia, IEEE Transactions on, vol. 9, no. 3, pp. 610–618, 2007.
+
+[25] L. Bai, S.-Y. Lao, H.-T. Liu, and J. Bu, "Video shot boundary detection using petri-net", in Machine Learning and Cybernetics, 2008 International Conference on, vol. 5. IEEE, 2008, pp. 3047–3051.
+
+[26] C. Liu, H. Liu, S. Jiang, Q. Huang, Y. Zheng, and W. Zhang, "Jdl at trecvid 2006 shot boundary detection", in TRECVID 2006 Workshop, 2006.
+
+[27] D. Xia, X. Deng, and Q. Zeng, "Shot Boundary Detection Based on Difference Sequences of Mutual Information", Fourth International Conference on Image and Graphics (ICIG 2007), pp. 389–394, Aug. 2007.
+
+[28] K.-C. Ko, Y. M. Cheon, G.-Y. Kim, H.-I. Choi, S.-Y. Shin, and Y.-W. Rhee, "Video shot boundary detection algorithm", in Computer Vision, Graphics and Image Processing. Springer, 2006, pp. 388–396.
+
+[29] Z. Cernekova, I. Pitas, and C. Nikou, "Information theory-based shot cut/fade detection and video summarization", Circuits and Systems for Video Technology, IEEE Transactions on, vol. 16, no. 1, pp. 82 –91, 2006.
+
+[30] a. Hanjalic, "Shot-boundary detection: unraveled and resolved?" IEEE Transactions on Circuits and Systems for Video Technology, vol. 12, no. 2, pp. 90–105, 2002.
+
+[31] G. M. Qusenot, ́ D. Moraru, and L. Besacier, "Clips at trecvid: Shot boundary detection and feature detection", 2003.
+
+[32] K. Matsumoto, M. Naito, K. Hoashi, and F. Sugaya, "Svm-based shot boundary detection with a novel feature", in Multimedia and Expo, 2006 IEEE International Conference on. IEEE, 2006, pp. 1837–1840.
+
+[33] C. M. Taskiran, Z. Pizlo, A. Amir, D. Ponceleon, and E. J. Delp, "Automated video program summarization using speech transcripts", Multimedia, IEEE Transactions on, vol. 8, no. 4, pp. 775–791, 2006.
+
+[34] Z.-C. Zhao, X. Zeng, T. Liu, and A.-N. Cai, "Bupt at trecvid 2007: Shot boundary detection." in TRECVID. Citeseer, 2007.
+
+[35] X. Ling, L. Chao, L. Huan, and X. Zhang, "A General Method for Shot Boundary Detection", 2008 International Conference on Multimedia and Ubiquitous Engineering (mue 2008), pp. 394–397, 2008.
+
+[36] P. Over, T. Ianeva, W. Kraaij, and A. F. Smeaton, "Trecvid 2005- an overview", 2005.
+
+[37] J. S. Boreczky and L. D. Wilcox, "A hidden markov model framework for video segmentation using audio and image features", in Acoustics, Speech and Signal Processing, 1998. Proceedings of the 1998 IEEE International Conference on, vol. 6. IEEE, 1998, pp. 3741–3744.
+
+[38] C.-c. Lo and S.-j. Wang, "Video segmentation using a histogrambased fuzzy c-means clustering algorithm", 10th IEEE International Conference on Fuzzy Systems. (Cat. No.01CH37297), vol. 3, pp. 920– 923, 2001.
+
+[39] U. Damnjanovic, E. Izquierdo, and M. Grzegorzek, "Shot boundary detection using spectral clustering", in 15th European Signal Processing Conference, 2007, p. 1779.
+
+[40] S. De Bruyne, D. Van Deursen, J. De Cock, W. De Neve, P. Lambert, and R. Van de Walle, "A compresseddomain approach for shot boundary detection on H.264/AVC bit streams", Signal Processing: Image Communication, vol. 23, no. 7, pp. 473–489, Aug. 2008.
+
+[41] H. Koumaras, G. Gardikis, G. Xilouris, E. Pallis, and a. Kourtis, "Shot boundary detection without threshold parameters", Journal of Electronic Imaging, vol. 15, no. 2, p. 020503, 2006.
+
+[42] C.-W. Ngo, "A robust dissolve detector by support vector machine", Proceedings of the eleventh ACM international conference on Multimedia - MULTIMEDIA ’03, no. 3, p. 283, 2003.
+
+[43] H.-W. Yoo, H.-J. Ryoo, and D.-S. Jang, "Gradual shot boundary detection using localized edge blocks", Multimedia Tools and Applications, vol. 28, no. 3, pp. 283–300, 2006.
+
+[44] K.-W. Sze, K.-M. Lam, and G. Qiu, "A new key frame representation for video segment retrieval", Circuits and Systems for Video Technology, IEEE Transactions on, vol. 15, no. 9, pp. 1148–1155, 2005.
+
+[45] B. T. Truong and S. Venkatesh, "Video abstraction: A systematic review and classification", ACM Transactions on Multimedia Computing, Communications, and Applications (TOMCCAP), vol. 3, no. 1, p. 3, 2007.
+
+[46] D. Besiris, N. Laskaris, F. Fotopoulou, and G. Economou, "Key frame extraction in video sequences: a vantage points approach", 2007 IEEE 9th Workshop on Multimedia Signal Processing, pp. 434–437, 2007.
+
+[47] D. P. Mukherjee, S. K. Das, and S. Saha, "Key frame estimation in video using randomness measure of feature point pattern", Circuits and Systems for Video Technology, IEEE Transactions on, vol. 17, no. 5, pp. 612–620, 2007.
+
+[48] R. Narasimha, A. Savakis, R. Rao, and R. De Queiroz, "Key frame extraction using mpeg-7 motion descriptors", in Signals, Systems and Computers, 2003. Conference Record of the Thirty-Seventh Asilomar Conference on, vol. 2. IEEE, 2003, pp. 1575–1579.
+
+[49] T. Wang, Y. Wu, and L. Chen, "An Approach to Video Key-frame Extraction Based on Rough Set", 2007 International Conference on Multimedia and Ubiquitous Engineering (MUE’07), pp. 590–596, 2007.
+
+[50] M. Guironnet, D. Pellerin, N. Guyader, P. Ladretet al., "Video summarization based on camera motion and a subjective evaluation method", EURASIP Journal on Image and Video Processing, vol. 2007, 2007.
+
+[51] B. Fauvet, P. Bouthemy, P. Gros, and F. Spindler, "A geometrical key- frame selection method exploiting dominant motion estimation in video", in Image and Video Retrieval. Springer, 2004, pp. 419–427.
+
+[52] J. Calic and E. Izuierdo, "Efficient key-frame extraction and video analysis", in Information Technology: Coding and Computing, 2002. Proceedings. International Conference on. IEEE, 2002, pp. 28–33.
+
+[53] a.M.Ferman and a.M.Tekalp, "Two-stage hierarchical video summary extraction to match low-level user browsing preferences", IEEE Transactions on Multimedia, vol. 5, no. 2, pp. 244–256, Jun. 2003.
+
+[54] Z. Sun, K. Jia, and H. Chen, "Video Key Frame Extraction Based on Spatial-Temporal Color Distribution", 2008 International Conference on Intelligent Information Hiding and Multimedia Signal Processing, pp. 196–199, Aug. 2008.
+
+[55] H. J. Zhang, J. Wu, D. Zhong, and S. W. Smoliar, "An integrated system for content-based video retrieval and browsing", Pattern recognition, vol. 30, no. 4, pp. 643–658, 1997.
+
+[56] X.-D. Zhang, T.-Y. Liu, K.-T. Lo, and J. Feng, "Dynamic selection and effective compression of key frames for video abstraction", Pattern recognition letters, vol. 24, no. 9, pp. 1523–1532, 2003.
+
+[57] A. Divakaran, R. Radhakrishnan, and K. A. Peker, "Motion activitybased extraction of key-frames from video shots", in Image Processing. 2002. Proceedings. 2002 International Conference on, vol. 1. IEEE, 2002, pp. I–932.
+
+[58] H.-C. Lee and S.-D. Kim, "Iterative key frame selection in the rateconstraint environment", Signal Processing: Image Communication, vol. 18, no. 1, pp. 1–15, 2003.
+
+[59] M. Cooper and J. Foote, "Discriminative techniques for keyframe selection", in Multimedia and Expo, 2005. ICME 2005. IEEE International Conference on. IEEE, 2005, pp. 4–pp.
+
+[60] H. S. Chang, S. Sull, and S. U. Lee, "Efficient video indexing scheme for content-based retrieval", Circuits and Systems for Video Technology, IEEE Transactions on, vol. 9, no. 8, pp. 1269–1279, 1999.
+
+[61] S. Porter, M. Mirmehdi, and B. Thomas, "A shortest path representation for video summarisation", 12th International Conference on Image Analysis and Processing, 2003.Proceedings, pp. 460–465.
